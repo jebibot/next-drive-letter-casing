@@ -16,3 +16,6 @@ npm run repro   # fails: TypeError: Cannot read properties of null (reading 'use
 Next's entry point spelled `c:\...\node_modules\next\dist\bin\next`. Both point
 to the same files; only the case of the drive letter differs.
 `npm run repro -- --webpack` fails the same way.
+
+The [Reproduce workflow](../../actions/workflows/repro.yml) runs both builds on
+`windows-latest`. Its last step fails while the bug exists.

@@ -1,0 +1,28 @@
+name: Reproduce
+
+# The job fails while the bug exists: the second build is the reproduction.
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  repro:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Show versions
+        run: npx --no-install next info
+
+      - name: Build with matching drive-letter case (passes)
+        run: npm run build
+
+      - name: Build with mismatched drive-letter case (fails while the bug exists)
+        run: npm run repro
